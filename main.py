@@ -1,33 +1,27 @@
 from datetime import datetime, timedelta
 
-
 def get_birthdays_per_week(users):
-    current_date = datetime.now()
+    current_date = datetime.now().date()
 
-    start_of_next_week = current_date + timedelta(days=(7 - current_date.weekday()))
+    start_of_week = current_date - timedelta(days=current_date.weekday())
 
-    birthdays_by_weekday = {
-        0: [],  # Понеділок
-        1: [],  # Вівторок
-        2: [],  # Середа
-        3: [],  # Четвер
-        4: [],  # Пятниц
-        5: [],  # Субота
-        6: []  # Неділя
-    }
+    birthdays_by_weekday = {i: [] for i in range(7)}
 
     for user in users:
-        birthday_weekday = user['birthday'].weekday()
+        name = user['name']
+        birthday = user['birthday'].replace(year=current_date.year).date()
 
-        if user['birthday'] >= start_of_next_week:
-            birthday_weekday = (birthday_weekday + 7) % 7
+        weekday = (birthday - start_of_week).days % 7
 
-        birthdays_by_weekday[birthday_weekday].append(user['name'])
+        birthdays_by_weekday[weekday].append(name)
 
-    for weekday, names in birthdays_by_weekday.items():
+    weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
+    for weekday_idx, names in birthdays_by_weekday.items():
         if names:
-            weekday_name = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][weekday]
-            print(f"{weekday_name}: {', '.join(names)}")
+            weekday_name = weekdays[weekday_idx]
+            names_str = ", ".join(names)
+            print(f"{weekday_name}: {names_str}")
 
 users = [
     {'name': 'Bill', 'birthday': datetime(2023, 2, 5)},
