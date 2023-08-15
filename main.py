@@ -24,7 +24,10 @@ def get_birthdays_per_week(users):
             print(f"{weekday_name}: {names_str}")
 
 users = [
-    {'name': 'Bill', 'birthday': datetime(1993, 2, 5)},
-    {'name': 'Jill', 'birthday': datetime(1999, 6, 19)},
-    {'name': 'Kim', 'birthday': datetime(2001, 1, 30)},
-    {'name': 'Jan', 'birthday': datetime(2005, 3, 29)},
+    {'name': 'Bill', 'birthday': datetime(2023, 2, 5)},
+    {'name': 'Jill', 'birthday': datetime(2023, 6, 19)},
+    {'name': 'Kim', 'birthday': datetime(2023, 1, 30)},
+    {'name': 'Jan', 'birthday': datetime(2023, 3, 29)},
+]
+
+get_birthdays_per_week(users)
